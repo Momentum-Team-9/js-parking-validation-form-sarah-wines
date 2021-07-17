@@ -16,10 +16,10 @@ Make each field required. This should only require changes to the HTML. A messag
 
 Add the following validations:
 
-* Car year must be a number. (Consider changing the `type` of the input field.)
-* Car year must be after 1900.
-* Number of days must be a number.
-* Number of days must be between 1 and 30.
+- Car year must be a number. (Consider changing the `type` of the input field.)
+- Car year must be after 1900.
+- Number of days must be a number.
+- Number of days must be between 1 and 30.
 
 ### Step 3
 
@@ -41,26 +41,25 @@ Validate the format of the credit card number. The following code will let you k
 
 ```js
 function validateCardNumber(number) {
-    var regex = new RegExp("^[0-9]{16}$");
-    if (!regex.test(number))
-        return false;
+  var regex = new RegExp('^[0-9]{16}$');
+  if (!regex.test(number)) return false;
 
-    return luhnCheck(number);
+  return luhnCheck(number);
 }
 
 function luhnCheck(val) {
-    var sum = 0;
-    for (var i = 0; i < val.length; i++) {
-        var intVal = parseInt(val.substr(i, 1));
-        if (i % 2 == 0) {
-            intVal *= 2;
-            if (intVal > 9) {
-                intVal = 1 + (intVal % 10);
-            }
-        }
-        sum += intVal;
+  var sum = 0;
+  for (var i = 0; i < val.length; i++) {
+    var intVal = parseInt(val.substr(i, 1));
+    if (i % 2 == 0) {
+      intVal *= 2;
+      if (intVal > 9) {
+        intVal = 1 + (intVal % 10);
+      }
     }
-    return (sum % 10) == 0;
+    sum += intVal;
+  }
+  return sum % 10 == 0;
 }
 ```
 
@@ -72,9 +71,9 @@ If the credit card number is invalid, an error message should appear that looks 
 
 Add the following validations:
 
-* Expiration date must be a valid month and year and in the correct format.
-* Expiration date must not be in the past.
-* Car year cannot be in the future.
-* Date parking must be in the future.
+- Expiration date must be a valid month and year and in the correct format.
+- Expiration date must not be in the past.
+- Car year cannot be in the future.
+- Date parking must be in the future.
 
 Each of these should also have client side validation errors.

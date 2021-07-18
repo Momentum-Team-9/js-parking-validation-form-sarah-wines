@@ -4,41 +4,67 @@ const nameInput = document.getElementById('name');
 const days = document.querySelector('#days');
 const expDate = document.querySelector('#expiration');
 const expParent = document.querySelector('#expiration-field');
+const ccParent = document.querySelector('#credit-card-field');
+const creditCard = document.querySelector('#credit-card');
 let total = document.querySelector('#total');
 let formIsValid;
 
+//submit button
+
 form.addEventListener('submit', function (event) {
   event.preventDefault();
+
   const valid = document.createElement('div');
   valid.id = 'message';
   total.appendChild(valid).innerText =
     'Your expected total will be $' + eval(days.value * 5);
+
   ValidExpDate(expDate.value);
+  //validates card number
+
+  if (validateCardNumber(creditCard.value) === false) {
+    const invalid = document.createElement('div');
+    ccParent.appendChild(invalid).innerText =
+      'Please enter a valid credit card number';
+  }
 });
 
-// //credit card regex
+//Trying to figure out dates but not sure how
+const fullToday = new Date();
+const m = fullToday.getMonth() + 1;
+const d = fullToday.getDay();
+const y = fullToday.getFullYear();
 
-// function validateCardNumber(number) {
-//   var regex = new RegExp('^[0-9]{16}$');
-//   if (!regex.test(number)) return false;
+const today = new Date(y, m, d);
+console.log(fullToday);
+console.log(d);
+console.log(today);
 
-//   return luhnCheck(number);
-// }
+//credit card regex
 
-// function luhnCheck(val) {
-//   var sum = 0;
-//   for (var i = 0; i < val.length; i++) {
-//     var intVal = parseInt(val.substr(i, 1));
-//     if (i % 2 == 0) {
-//       intVal *= 2;
-//       if (intVal > 9) {
-//         intVal = 1 + (intVal % 10);
-//       }
-//     }
-//     sum += intVal;
-//   }
-//   return sum % 10 == 0;
-// }
+function validateCardNumber(number) {
+  var regex = new RegExp('^[0-9]{16}$');
+  if (!regex.test(number)) return false;
+
+  return luhnCheck(number);
+}
+
+function luhnCheck(val) {
+  var sum = 0;
+  for (var i = 0; i < val.length; i++) {
+    var intVal = parseInt(val.substr(i, 1));
+    if (i % 2 == 0) {
+      intVal *= 2;
+      if (intVal > 9) {
+        intVal = 1 + (intVal % 10);
+      }
+    }
+    sum += intVal;
+  }
+  return sum % 10 == 0;
+}
+
+//Exp date
 
 function ValidExpDate(dValue) {
   let result = false;

@@ -14,10 +14,14 @@ let formIsValid;
 form.addEventListener('submit', function (event) {
   event.preventDefault();
 
+  //eval price
   const valid = document.createElement('div');
   valid.id = 'message';
   total.appendChild(valid).innerText =
     'Your expected total will be $' + eval(days.value * 5);
+
+  //eval w/ weekends
+  //date parking + number of days = number of weekend/weeekday days
 
   ValidExpDate(expDate.value);
   //validates card number

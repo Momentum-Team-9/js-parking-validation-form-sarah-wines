@@ -7,12 +7,14 @@ const expParent = document.querySelector('#expiration-field');
 const ccParent = document.querySelector('#credit-card-field');
 const creditCard = document.querySelector('#credit-card');
 let total = document.querySelector('#total');
+let clearOutput = false;
 let formIsValid;
 
 //submit button
 
 form.addEventListener('submit', function (event) {
   event.preventDefault();
+  clearOutput = true;
 
   //eval price
   const valid = document.createElement('div');
@@ -25,6 +27,8 @@ form.addEventListener('submit', function (event) {
 
   ValidExpDate(expDate.value);
   //validates card number
+
+  //Debugged by returning to original push -- curly brace was missing.
 
   if (validateCardNumber(creditCard.value) === false) {
     const invalid = document.createElement('div');
